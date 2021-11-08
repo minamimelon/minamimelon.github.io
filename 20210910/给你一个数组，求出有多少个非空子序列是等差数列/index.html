@@ -17,13 +17,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+    var CONFIG = {"hostname":"ringofo.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
   <meta name="description" content="\(O(n^2v)\)算法 用\(f(i,j)\)表示以位置i结尾，公差为j的等差数列有多少个。 转移的时候，枚举一个小于i的k，满足\(h_k+j&#x3D; h_i\) 由f(k,j)转移到\(f(i,j)\) 123456789101112131415161718192021222324252627#include&lt;bits&#x2F;stdc++.h&gt;using namespace std">
 <meta property="og:type" content="article">
 <meta property="og:title" content="给你一个数组，求出有多少个非空子序列是等差数列">
-<meta property="og:url" content="http://example.com/20210910/%E7%BB%99%E4%BD%A0%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84%EF%BC%8C%E6%B1%82%E5%87%BA%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA%E9%9D%9E%E7%A9%BA%E5%AD%90%E5%BA%8F%E5%88%97%E6%98%AF%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97/index.html">
+<meta property="og:url" content="http://ringofo.github.io/20210910/%E7%BB%99%E4%BD%A0%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84%EF%BC%8C%E6%B1%82%E5%87%BA%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA%E9%9D%9E%E7%A9%BA%E5%AD%90%E5%BA%8F%E5%88%97%E6%98%AF%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97/index.html">
 <meta property="og:site_name" content="Ringofo&#39;s Blog">
 <meta property="og:description" content="\(O(n^2v)\)算法 用\(f(i,j)\)表示以位置i结尾，公差为j的等差数列有多少个。 转移的时候，枚举一个小于i的k，满足\(h_k+j&#x3D; h_i\) 由f(k,j)转移到\(f(i,j)\) 123456789101112131415161718192021222324252627#include&lt;bits&#x2F;stdc++.h&gt;using namespace std">
 <meta property="og:locale" content="zh_CN">
@@ -32,7 +32,7 @@
 <meta property="article:author" content="Ringofo">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/20210910/%E7%BB%99%E4%BD%A0%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84%EF%BC%8C%E6%B1%82%E5%87%BA%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA%E9%9D%9E%E7%A9%BA%E5%AD%90%E5%BA%8F%E5%88%97%E6%98%AF%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97/">
+<link rel="canonical" href="http://ringofo.github.io/20210910/%E7%BB%99%E4%BD%A0%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84%EF%BC%8C%E6%B1%82%E5%87%BA%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA%E9%9D%9E%E7%A9%BA%E5%AD%90%E5%BA%8F%E5%88%97%E6%98%AF%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97/">
 
 
 <script id="page-configurations">
@@ -178,7 +178,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/20210910/%E7%BB%99%E4%BD%A0%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84%EF%BC%8C%E6%B1%82%E5%87%BA%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA%E9%9D%9E%E7%A9%BA%E5%AD%90%E5%BA%8F%E5%88%97%E6%98%AF%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97/">
+    <link itemprop="mainEntityOfPage" href="http://ringofo.github.io/20210910/%E7%BB%99%E4%BD%A0%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84%EF%BC%8C%E6%B1%82%E5%87%BA%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA%E9%9D%9E%E7%A9%BA%E5%AD%90%E5%BA%8F%E5%88%97%E6%98%AF%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">

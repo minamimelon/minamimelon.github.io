@@ -17,13 +17,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+    var CONFIG = {"hostname":"ringofo.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
   <meta name="description" content="拦截导弹 题意：求最长不上升子序列长度；求一个序列最少分成几个非增子序。 第一问易求，已知序列a，令f[i]为a前i个元素的最长非增子序的长度，则有 f[i]&#x3D;max{f[i],f[j]+1} (1&lt;&#x3D;j&lt;&#x3D;i-1且h[j]&gt;&#x3D;h[i]). LIS另有nlogn做法，设g[i]为长度为i的最长不上升结尾最小是什么，二分查找更新次数组可得长度。解本题则可以倒序做LIS。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="拦截导弹类问题 （Codevs4888零件分组POJ1065Wooden Sticks）（LIS及其覆盖问题）">
-<meta property="og:url" content="http://example.com/20171017/%E6%8B%A6%E6%88%AA%E5%AF%BC%E5%BC%B9%E7%B1%BB%E9%97%AE%E9%A2%98%20%EF%BC%88Codevs4888%E9%9B%B6%E4%BB%B6%E5%88%86%E7%BB%84POJ1065Wooden%20Sticks%EF%BC%89%EF%BC%88LIS%E5%8F%8A%E5%85%B6%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98%EF%BC%89/index.html">
+<meta property="og:url" content="http://ringofo.github.io/20171017/%E6%8B%A6%E6%88%AA%E5%AF%BC%E5%BC%B9%E7%B1%BB%E9%97%AE%E9%A2%98%20%EF%BC%88Codevs4888%E9%9B%B6%E4%BB%B6%E5%88%86%E7%BB%84POJ1065Wooden%20Sticks%EF%BC%89%EF%BC%88LIS%E5%8F%8A%E5%85%B6%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98%EF%BC%89/index.html">
 <meta property="og:site_name" content="Ringofo&#39;s Blog">
 <meta property="og:description" content="拦截导弹 题意：求最长不上升子序列长度；求一个序列最少分成几个非增子序。 第一问易求，已知序列a，令f[i]为a前i个元素的最长非增子序的长度，则有 f[i]&#x3D;max{f[i],f[j]+1} (1&lt;&#x3D;j&lt;&#x3D;i-1且h[j]&gt;&#x3D;h[i]). LIS另有nlogn做法，设g[i]为长度为i的最长不上升结尾最小是什么，二分查找更新次数组可得长度。解本题则可以倒序做LIS。">
 <meta property="og:locale" content="zh_CN">
@@ -32,7 +32,7 @@
 <meta property="article:author" content="Ringofo">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/20171017/%E6%8B%A6%E6%88%AA%E5%AF%BC%E5%BC%B9%E7%B1%BB%E9%97%AE%E9%A2%98%20%EF%BC%88Codevs4888%E9%9B%B6%E4%BB%B6%E5%88%86%E7%BB%84POJ1065Wooden%20Sticks%EF%BC%89%EF%BC%88LIS%E5%8F%8A%E5%85%B6%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98%EF%BC%89/">
+<link rel="canonical" href="http://ringofo.github.io/20171017/%E6%8B%A6%E6%88%AA%E5%AF%BC%E5%BC%B9%E7%B1%BB%E9%97%AE%E9%A2%98%20%EF%BC%88Codevs4888%E9%9B%B6%E4%BB%B6%E5%88%86%E7%BB%84POJ1065Wooden%20Sticks%EF%BC%89%EF%BC%88LIS%E5%8F%8A%E5%85%B6%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98%EF%BC%89/">
 
 
 <script id="page-configurations">
@@ -178,7 +178,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/20171017/%E6%8B%A6%E6%88%AA%E5%AF%BC%E5%BC%B9%E7%B1%BB%E9%97%AE%E9%A2%98%20%EF%BC%88Codevs4888%E9%9B%B6%E4%BB%B6%E5%88%86%E7%BB%84POJ1065Wooden%20Sticks%EF%BC%89%EF%BC%88LIS%E5%8F%8A%E5%85%B6%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="http://ringofo.github.io/20171017/%E6%8B%A6%E6%88%AA%E5%AF%BC%E5%BC%B9%E7%B1%BB%E9%97%AE%E9%A2%98%20%EF%BC%88Codevs4888%E9%9B%B6%E4%BB%B6%E5%88%86%E7%BB%84POJ1065Wooden%20Sticks%EF%BC%89%EF%BC%88LIS%E5%8F%8A%E5%85%B6%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">

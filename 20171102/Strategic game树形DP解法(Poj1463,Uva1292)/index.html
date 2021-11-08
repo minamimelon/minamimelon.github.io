@@ -17,13 +17,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+    var CONFIG = {"hostname":"ringofo.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
   <meta name="description" content="已经写过本题用二分图的做法，见这儿。 本题的图是一棵树，求最小点覆盖也可以用树形DP的做法。 定义状态f[0&#x2F;1][u]表示以u为根的子树，u选取&#x2F;不选最少需要选取多少点来覆盖。 显然 f[0][u] &#x3D; Sigma{f[1][v]},f[1][u] &#x3D; Sigma{min(f[0][v],f[1][v])}+1 ( &lt; u,v &gt; 属于G且v!&#x3D;u.father) 123456">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Strategic game树形DP解法(Poj1463,Uva1292)">
-<meta property="og:url" content="http://example.com/20171102/Strategic%20game%E6%A0%91%E5%BD%A2DP%E8%A7%A3%E6%B3%95(Poj1463,Uva1292)/index.html">
+<meta property="og:url" content="http://ringofo.github.io/20171102/Strategic%20game%E6%A0%91%E5%BD%A2DP%E8%A7%A3%E6%B3%95(Poj1463,Uva1292)/index.html">
 <meta property="og:site_name" content="Ringofo&#39;s Blog">
 <meta property="og:description" content="已经写过本题用二分图的做法，见这儿。 本题的图是一棵树，求最小点覆盖也可以用树形DP的做法。 定义状态f[0&#x2F;1][u]表示以u为根的子树，u选取&#x2F;不选最少需要选取多少点来覆盖。 显然 f[0][u] &#x3D; Sigma{f[1][v]},f[1][u] &#x3D; Sigma{min(f[0][v],f[1][v])}+1 ( &lt; u,v &gt; 属于G且v!&#x3D;u.father) 123456">
 <meta property="og:locale" content="zh_CN">
@@ -32,7 +32,7 @@
 <meta property="article:author" content="Ringofo">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/20171102/Strategic%20game%E6%A0%91%E5%BD%A2DP%E8%A7%A3%E6%B3%95(Poj1463,Uva1292)/">
+<link rel="canonical" href="http://ringofo.github.io/20171102/Strategic%20game%E6%A0%91%E5%BD%A2DP%E8%A7%A3%E6%B3%95(Poj1463,Uva1292)/">
 
 
 <script id="page-configurations">
@@ -178,7 +178,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/20171102/Strategic%20game%E6%A0%91%E5%BD%A2DP%E8%A7%A3%E6%B3%95(Poj1463,Uva1292)/">
+    <link itemprop="mainEntityOfPage" href="http://ringofo.github.io/20171102/Strategic%20game%E6%A0%91%E5%BD%A2DP%E8%A7%A3%E6%B3%95(Poj1463,Uva1292)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">

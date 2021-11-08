@@ -17,13 +17,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+    var CONFIG = {"hostname":"ringofo.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
   <meta name="description" content="luogu1654 一个01串中每个长度为\(X\)的全1子串可贡献\(X^3\)的分数。 给出n次操作的成功率（在01串后附加1的概率）\(p[i]\)，求分数的期望。 设\(a[i]\)表示前i位中第i位为1的长度的期望： \(a[i]&#x3D;(a[i−1]+1)×p[i]\) 即为在i-1的末尾加一个概率为\(p[i]\)出现的1 设\(b[i]\)表示前i位中第i位为1的长度的平方的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="期望DP学习记录_高次期望">
-<meta property="og:url" content="http://example.com/20210814/%E6%9C%9F%E6%9C%9BDP%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E9%AB%98%E6%AC%A1%E6%9C%9F%E6%9C%9B/index.html">
+<meta property="og:url" content="http://ringofo.github.io/20210814/%E6%9C%9F%E6%9C%9BDP%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E9%AB%98%E6%AC%A1%E6%9C%9F%E6%9C%9B/index.html">
 <meta property="og:site_name" content="Ringofo&#39;s Blog">
 <meta property="og:description" content="luogu1654 一个01串中每个长度为\(X\)的全1子串可贡献\(X^3\)的分数。 给出n次操作的成功率（在01串后附加1的概率）\(p[i]\)，求分数的期望。 设\(a[i]\)表示前i位中第i位为1的长度的期望： \(a[i]&#x3D;(a[i−1]+1)×p[i]\) 即为在i-1的末尾加一个概率为\(p[i]\)出现的1 设\(b[i]\)表示前i位中第i位为1的长度的平方的">
 <meta property="og:locale" content="zh_CN">
@@ -32,7 +32,7 @@
 <meta property="article:author" content="Ringofo">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/20210814/%E6%9C%9F%E6%9C%9BDP%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E9%AB%98%E6%AC%A1%E6%9C%9F%E6%9C%9B/">
+<link rel="canonical" href="http://ringofo.github.io/20210814/%E6%9C%9F%E6%9C%9BDP%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E9%AB%98%E6%AC%A1%E6%9C%9F%E6%9C%9B/">
 
 
 <script id="page-configurations">
@@ -178,7 +178,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/20210814/%E6%9C%9F%E6%9C%9BDP%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E9%AB%98%E6%AC%A1%E6%9C%9F%E6%9C%9B/">
+    <link itemprop="mainEntityOfPage" href="http://ringofo.github.io/20210814/%E6%9C%9F%E6%9C%9BDP%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E9%AB%98%E6%AC%A1%E6%9C%9F%E6%9C%9B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">

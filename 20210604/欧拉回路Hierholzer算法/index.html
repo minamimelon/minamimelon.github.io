@@ -17,13 +17,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+    var CONFIG = {"hostname":"ringofo.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
   <meta name="description" content="Hierholzer算法，也称逐步插入回路法。算法流程为从一条回路开始，每次任取一条目前回路中的点，将其替换为一条简单回路，以此寻找到一条欧拉回路。如果从路开始的话，就可以寻找到一条欧拉路。 任取一个起点,开始下面的步骤 如果该点没有相连的点，就将该点加进路径中然后返回。 如果该点有相连的点，就列一张相连点的表然后遍历它们直到该点没有相连的点。(遍历一个点，删除一个点）处理当前的点,删除和这">
 <meta property="og:type" content="article">
 <meta property="og:title" content="欧拉回路 Hierholzer算法">
-<meta property="og:url" content="http://example.com/20210604/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AFHierholzer%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:url" content="http://ringofo.github.io/20210604/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AFHierholzer%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="Ringofo&#39;s Blog">
 <meta property="og:description" content="Hierholzer算法，也称逐步插入回路法。算法流程为从一条回路开始，每次任取一条目前回路中的点，将其替换为一条简单回路，以此寻找到一条欧拉回路。如果从路开始的话，就可以寻找到一条欧拉路。 任取一个起点,开始下面的步骤 如果该点没有相连的点，就将该点加进路径中然后返回。 如果该点有相连的点，就列一张相连点的表然后遍历它们直到该点没有相连的点。(遍历一个点，删除一个点）处理当前的点,删除和这">
 <meta property="og:locale" content="zh_CN">
@@ -32,7 +32,7 @@
 <meta property="article:author" content="Ringofo">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/20210604/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AFHierholzer%E7%AE%97%E6%B3%95/">
+<link rel="canonical" href="http://ringofo.github.io/20210604/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AFHierholzer%E7%AE%97%E6%B3%95/">
 
 
 <script id="page-configurations">
@@ -178,7 +178,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/20210604/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AFHierholzer%E7%AE%97%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://ringofo.github.io/20210604/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AFHierholzer%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">

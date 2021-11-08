@@ -17,13 +17,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+    var CONFIG = {"hostname":"ringofo.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
   <meta name="description" content="对于一个 \(n\) 个顶点的凸多边形，它的任何三条对角线都不会交于一点。请求出图形中对角线交点的个数。 练python刷简单题刷到了这个，挺有趣的一道题目。 1 对于一个 \(n\) 边形，选任意一个点A可以引出\(n-3\)条对角线。相邻的点B再引出\(n-3\)条线，分别与前者有\(1,2 ... n-3\)个交点。与B相邻且不与A相邻的C引出\(n-4\)条线，交A引出的对角线有\(">
 <meta property="og:type" content="article">
 <meta property="og:title" content="洛谷 P2181 对角线 全面分析">
-<meta property="og:url" content="http://example.com/20200810/%E6%B4%9B%E8%B0%B7%20P2181%20%E5%AF%B9%E8%A7%92%E7%BA%BF%20%E5%85%A8%E9%9D%A2%E5%88%86%E6%9E%90/index.html">
+<meta property="og:url" content="http://ringofo.github.io/20200810/%E6%B4%9B%E8%B0%B7%20P2181%20%E5%AF%B9%E8%A7%92%E7%BA%BF%20%E5%85%A8%E9%9D%A2%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="Ringofo&#39;s Blog">
 <meta property="og:description" content="对于一个 \(n\) 个顶点的凸多边形，它的任何三条对角线都不会交于一点。请求出图形中对角线交点的个数。 练python刷简单题刷到了这个，挺有趣的一道题目。 1 对于一个 \(n\) 边形，选任意一个点A可以引出\(n-3\)条对角线。相邻的点B再引出\(n-3\)条线，分别与前者有\(1,2 ... n-3\)个交点。与B相邻且不与A相邻的C引出\(n-4\)条线，交A引出的对角线有\(">
 <meta property="og:locale" content="zh_CN">
@@ -32,7 +32,7 @@
 <meta property="article:author" content="Ringofo">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/20200810/%E6%B4%9B%E8%B0%B7%20P2181%20%E5%AF%B9%E8%A7%92%E7%BA%BF%20%E5%85%A8%E9%9D%A2%E5%88%86%E6%9E%90/">
+<link rel="canonical" href="http://ringofo.github.io/20200810/%E6%B4%9B%E8%B0%B7%20P2181%20%E5%AF%B9%E8%A7%92%E7%BA%BF%20%E5%85%A8%E9%9D%A2%E5%88%86%E6%9E%90/">
 
 
 <script id="page-configurations">
@@ -178,7 +178,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/20200810/%E6%B4%9B%E8%B0%B7%20P2181%20%E5%AF%B9%E8%A7%92%E7%BA%BF%20%E5%85%A8%E9%9D%A2%E5%88%86%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="http://ringofo.github.io/20200810/%E6%B4%9B%E8%B0%B7%20P2181%20%E5%AF%B9%E8%A7%92%E7%BA%BF%20%E5%85%A8%E9%9D%A2%E5%88%86%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
