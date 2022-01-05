@@ -17,22 +17,22 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"ringofo.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+    var CONFIG = {"hostname":"minamimelon.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
   <meta name="description" content="Arithmetic Progressions USACO1.4 An arithmetic progression is a sequence of the form a, a+b, a+2b, ..., a+nb where n&#x3D;0,1,2,3,... . For this problem, a is a non-negative integer and b is a positive in">
 <meta property="og:type" content="article">
 <meta property="og:title" content="等差数列Arithmetic Progressions题解(USACO1.4)">
-<meta property="og:url" content="http://ringofo.github.io/20171019/%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97Arithmetic%20Progressions%E9%A2%98%E8%A7%A3(USACO1.4)/index.html">
-<meta property="og:site_name" content="Ringofo&#39;s Blog">
+<meta property="og:url" content="http://minamimelon.github.io/20171019/%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97Arithmetic%20Progressions%E9%A2%98%E8%A7%A3(USACO1.4)/index.html">
+<meta property="og:site_name" content="MinamiMelon&#39;s Blog">
 <meta property="og:description" content="Arithmetic Progressions USACO1.4 An arithmetic progression is a sequence of the form a, a+b, a+2b, ..., a+nb where n&#x3D;0,1,2,3,... . For this problem, a is a non-negative integer and b is a positive in">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-10-19T05:55:00.000Z">
 <meta property="article:modified_time" content="2021-04-29T07:46:11.868Z">
-<meta property="article:author" content="Ringofo">
+<meta property="article:author" content="MinamiMelon">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://ringofo.github.io/20171019/%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97Arithmetic%20Progressions%E9%A2%98%E8%A7%A3(USACO1.4)/">
+<link rel="canonical" href="http://minamimelon.github.io/20171019/%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97Arithmetic%20Progressions%E9%A2%98%E8%A7%A3(USACO1.4)/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>等差数列Arithmetic Progressions题解(USACO1.4) | Ringofo's Blog</title>
+  <title>等差数列Arithmetic Progressions题解(USACO1.4) | MinamiMelon's Blog</title>
   
 
 
@@ -96,7 +96,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Ringofo's Blog</h1>
+      <h1 class="site-title">MinamiMelon's Blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -178,16 +178,16 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://ringofo.github.io/20171019/%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97Arithmetic%20Progressions%E9%A2%98%E8%A7%A3(USACO1.4)/">
+    <link itemprop="mainEntityOfPage" href="http://minamimelon.github.io/20171019/%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97Arithmetic%20Progressions%E9%A2%98%E8%A7%A3(USACO1.4)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Ringofo">
+      <meta itemprop="name" content="MinamiMelon">
       <meta itemprop="description" content="">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ringofo's Blog">
+      <meta itemprop="name" content="MinamiMelon's Blog">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -316,7 +316,7 @@ There will be no more than 10,000 sequences.</p>
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Ringofo</p>
+  <p class="site-author-name" itemprop="name">MinamiMelon</p>
   <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -352,11 +352,11 @@ There will be no more than 10,000 sequences.</p>
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Ringofo</span>
+  <span class="author" itemprop="copyrightHolder">MinamiMelon</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -479,9 +479,9 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
     var gitalk = new Gitalk({
       clientID    : '5dd0615f6f9152a467c9',
       clientSecret: 'd60adec28c1196fc9031fe922d81fb6a00e8c7d5',
-      repo        : 'ringofo.github.io',
-      owner       : 'ringofo',
-      admin       : ['ringofo'],
+      repo        : 'minamimelon.github.io',
+      owner       : 'minamimelon',
+      admin       : ['minamimelon'],
       id          : 'eba2559dfae7c326401a02ad879dc4a6',
         language: 'zh-CN',
       distractionFreeMode: true
