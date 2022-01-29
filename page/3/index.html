@@ -21,9 +21,9 @@
   </script>
 
   <meta property="og:type" content="website">
-<meta property="og:title" content="MinamiMelon&#39;s Blog">
+<meta property="og:title" content="MinamiMelon">
 <meta property="og:url" content="http://minamimelon.github.io/page/3/index.html">
-<meta property="og:site_name" content="MinamiMelon&#39;s Blog">
+<meta property="og:site_name" content="MinamiMelon">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="MinamiMelon">
 <meta name="twitter:card" content="summary">
@@ -41,7 +41,7 @@
   };
 </script>
 
-  <title>MinamiMelon's Blog</title>
+  <title>MinamiMelon</title>
   
 
 
@@ -92,7 +92,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">MinamiMelon's Blog</h1>
+      <h1 class="site-title">MinamiMelon</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -173,6 +173,77 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://minamimelon.github.io/20171101/[USACO08JAN]Haybale%20Guessing(LuoguP2898)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="MinamiMelon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MinamiMelon">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/20171101/%5BUSACO08JAN%5DHaybale%20Guessing(LuoguP2898)/" class="post-title-link" itemprop="url">[USACO08JAN]Haybale Guessing(LuoguP2898)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-01 11:47:00" itemprop="dateCreated datePublished" datetime="2017-11-01T11:47:00+08:00">2017-11-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-29 15:46:11" itemprop="dateModified" datetime="2021-04-29T15:46:11+08:00">2021-04-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>The cows, who always have an inferiority complex about their intelligence, have a new guessing game to sharpen their brains.A designated 'Hay Cow' hides behind the barn and creates N (1 ?? N ?? 1,000,000) uniquely-sized stacks (conveniently numbered 1..N) of hay bales, each with 1..1,000,000,000 bales of hay.The other cows then ask the Hay Cow a series of Q (1 ?? Q ?? 25,000) questions about the the stacks, all having the same form:What is the smallest number of bales of any stack in the range of stack numbers Ql..Qh (1 ?? Ql ?? N; Ql ?? Qh ?? N)?The Hay Cow answers each of these queries with a single integer A whose truthfulness is not guaranteed.Help the other cows determine if the answers given by the Hay Cow are self-consistent or if certain answers contradict others.<br />
+???鼯+?????<br />
+?????????ì????????<br />
+????е??????????????κ??????????????????????????С????????????н????????????????????ì???<br />
+??????????????????С?????С???????????ì???<br />
+?????????ж?????????С?<br />
+???????ì??????????????????????С???С????????鼯?????????????????????????????????????鼯???????????????????????????????????鼯????????????????????????????????????????????????????????????????????????δ????????????????????????????????????ì??? <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rint register int</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">getint</span><span class="params">(<span class="keyword">int</span> &amp;x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> c;</span><br><span class="line">	<span class="keyword">for</span>(c=<span class="built_in">getchar</span>();c&gt;<span class="string">&#x27;9&#x27;</span>||c&lt;<span class="string">&#x27;0&#x27;</span>;c=<span class="built_in">getchar</span>());</span><br><span class="line">	<span class="keyword">for</span>(x=<span class="number">0</span>;c&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;c&lt;=<span class="string">&#x27;9&#x27;</span>;c=<span class="built_in">getchar</span>())</span><br><span class="line">		x=(x&lt;&lt;<span class="number">1</span>)+(x&lt;&lt;<span class="number">3</span>)+c-<span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN=<span class="number">1000000</span>+<span class="number">5</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Seg</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> l,r,v;</span><br><span class="line">&#125;e[MAXN];</span><br><span class="line"><span class="keyword">int</span> lim,n;</span><br><span class="line"><span class="keyword">int</span> srt[MAXN],fa[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(e[a].v==e[b].v)</span><br><span class="line">		<span class="keyword">return</span> e[a].l==e[b].l?e[a].r&lt;e[b].r:e[a].l&lt;e[b].l;</span><br><span class="line">	<span class="keyword">return</span> e[a].v&gt;e[b].v;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> fa[x]==x?x:fa[x]=<span class="built_in">find</span>(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> mid)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(rint i=<span class="number">1</span>;i&lt;=mid;++i)</span><br><span class="line">		srt[i]=i;</span><br><span class="line">	<span class="keyword">for</span>(rint i=<span class="number">1</span>;i&lt;=lim;++i)</span><br><span class="line">		fa[i]=i;</span><br><span class="line">	<span class="built_in">sort</span>(srt+<span class="number">1</span>,srt+mid+<span class="number">1</span>,cmp);</span><br><span class="line">	<span class="keyword">int</span> x,y;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=mid;++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> t=e[srt[i]].v,l=e[srt[i]].l,</span><br><span class="line">                r=e[srt[i]].r,lm=e[srt[i]].l,rm=e[srt[i]].r;</span><br><span class="line">		<span class="keyword">while</span>(i+<span class="number">1</span>&lt;=mid&amp;&amp;t==e[srt[i+<span class="number">1</span>]].v)</span><br><span class="line">		&#123;</span><br><span class="line">			++i;</span><br><span class="line">			<span class="keyword">if</span>(e[srt[i]].l&gt;r)</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			l=<span class="built_in">max</span>(l,e[srt[i]].l);</span><br><span class="line">			r=<span class="built_in">min</span>(r,e[srt[i]].r);</span><br><span class="line">			lm=<span class="built_in">min</span>(lm,e[srt[i]].l);</span><br><span class="line">			rm=<span class="built_in">max</span>(rm,e[srt[i]].r);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> x=<span class="built_in">find</span>(l),y=<span class="built_in">find</span>(r);</span><br><span class="line">		<span class="keyword">if</span>((l!=r&amp;&amp;x==y&amp;&amp;y!=r)||(l==r&amp;&amp;y!=r)) <span class="comment">//??????ж?</span></span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		x=lm,y=rm;</span><br><span class="line">		<span class="keyword">int</span> rg=<span class="built_in">find</span>(y+<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">while</span>(rg!=<span class="built_in">find</span>(x))</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> fx=<span class="built_in">find</span>(x);</span><br><span class="line">			fa[fx]=fa[fx+<span class="number">1</span>];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;lim,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">		<span class="built_in">getint</span>(e[i].l),<span class="built_in">getint</span>(e[i].r),<span class="built_in">getint</span>(e[i].v);</span><br><span class="line">	<span class="keyword">int</span> l=<span class="number">1</span>,r=n+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(r-l&gt;<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> mid=l+r&gt;&gt;<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">check</span>(mid))</span><br><span class="line">			l=mid;</span><br><span class="line">		<span class="keyword">else</span> r=mid;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,l==n?<span class="number">0</span>:l+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://minamimelon.github.io/20171030/%E8%AE%A1%E7%AE%97%E7%B3%BB%E6%95%B0(NOIP2011%E6%8F%90%E9%AB%98LuoguP1313)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -182,7 +253,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MinamiMelon's Blog">
+      <meta itemprop="name" content="MinamiMelon">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -249,7 +320,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MinamiMelon's Blog">
+      <meta itemprop="name" content="MinamiMelon">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -316,7 +387,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MinamiMelon's Blog">
+      <meta itemprop="name" content="MinamiMelon">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -384,7 +455,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MinamiMelon's Blog">
+      <meta itemprop="name" content="MinamiMelon">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -454,7 +525,7 @@ Sorting is one of the most frequently performed computational tasks. Consider th
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MinamiMelon's Blog">
+      <meta itemprop="name" content="MinamiMelon">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -525,7 +596,7 @@ There will be no more than 10,000 sequences.</p>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MinamiMelon's Blog">
+      <meta itemprop="name" content="MinamiMelon">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -591,7 +662,7 @@ There will be no more than 10,000 sequences.</p>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MinamiMelon's Blog">
+      <meta itemprop="name" content="MinamiMelon">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -667,7 +738,7 @@ nlogn的非增序列处理比较复杂，（因为处理到a[i]是，要找到�
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MinamiMelon's Blog">
+      <meta itemprop="name" content="MinamiMelon">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -732,7 +803,7 @@ nlogn的非增序列处理比较复杂，（因为处理到a[i]是，要找到�
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MinamiMelon's Blog">
+      <meta itemprop="name" content="MinamiMelon">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -854,7 +925,7 @@ nlogn的非增序列处理比较复杂，（因为处理到a[i]是，要找到�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
