@@ -173,6 +173,147 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://minamimelon.github.io/20171017/%E6%8B%A6%E6%88%AA%E5%AF%BC%E5%BC%B9%E7%B1%BB%E9%97%AE%E9%A2%98%20%EF%BC%88Codevs4888%E9%9B%B6%E4%BB%B6%E5%88%86%E7%BB%84POJ1065Wooden%20Sticks%EF%BC%89%EF%BC%88LIS%E5%8F%8A%E5%85%B6%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="MinamiMelon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MinamiMelon">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/20171017/%E6%8B%A6%E6%88%AA%E5%AF%BC%E5%BC%B9%E7%B1%BB%E9%97%AE%E9%A2%98%20%EF%BC%88Codevs4888%E9%9B%B6%E4%BB%B6%E5%88%86%E7%BB%84POJ1065Wooden%20Sticks%EF%BC%89%EF%BC%88LIS%E5%8F%8A%E5%85%B6%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98%EF%BC%89/" class="post-title-link" itemprop="url">拦截导弹类问题 （Codevs4888零件分组POJ1065Wooden Sticks）（LIS及其覆盖问题）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-10-17 05:23:00" itemprop="dateCreated datePublished" datetime="2017-10-17T05:23:00+08:00">2017-10-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-29 15:46:11" itemprop="dateModified" datetime="2021-04-29T15:46:11+08:00">2021-04-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="拦截导弹">拦截导弹</h2>
+<p>题意：求最长不上升子序列长度；求一个序列最少分成几个非增子序。</p>
+<p>第一问易求，已知序列a，令f[i]为a前i个元素的最长非增子序的长度，则有<br />
+f[i]=max{f[i],f[j]+1} (1&lt;=j&lt;=i-1且h[j]&gt;=h[i]).<br />
+LIS另有nlogn做法，设g[i]为长度为i的最长不上升结尾最小是什么，二分查找更新次数组可得长度。解本题则可以倒序做LIS。<br />
+对于第二问，可以维护一个单调序列,为现有导弹拦截系统的最大高度，顺序处理序列，每次贪心的使用大于该导弹高度最小的来拦截这个导弹，显然这样比使用一个可以拦截更高的系统更优。 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std; </span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">30</span>],f[<span class="number">30</span>],g[<span class="number">30</span>],n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a[++n]));</span><br><span class="line">	--n;</span><br><span class="line">	<span class="built_in">memset</span>(f,<span class="number">63</span>,<span class="keyword">sizeof</span> f);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=n;i&gt;<span class="number">0</span>;--i)<span class="comment">//倒序LIS </span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> p=<span class="built_in">lower_bound</span>(f+<span class="number">1</span>,f+n+<span class="number">1</span>,a[i])-f;</span><br><span class="line">		f[p]=a[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,<span class="built_in">lower_bound</span>(f+<span class="number">1</span>,f+n+<span class="number">1</span>,INF)-f<span class="number">-1</span>);</span><br><span class="line">	<span class="built_in">memset</span>(g,<span class="number">63</span>,<span class="keyword">sizeof</span> g);<span class="comment">//初始时可以拦截任意高度的导弹 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> p=<span class="built_in">lower_bound</span>(g+<span class="number">1</span>,g+n+<span class="number">1</span>,a[i])-g;</span><br><span class="line">		g[p]=a[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,<span class="built_in">lower_bound</span>(g+<span class="number">1</span>,g+n+<span class="number">1</span>,INF)-g<span class="number">-1</span>);<span class="comment">//找到最后一个使用过的</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 不难发现，第二问按照贪心的思路打出的实际上是一个nlogn的LIS。这涉及到一个定理。</p>
+<p><strong>Dilworth定理：对于一个偏序集，最少链划分等于最长反链长度.</strong></p>
+<p>也就是说<strong>把一个数列划分成最少的最长不上升子序列的数目</strong>就等于这个数列的<strong>最长不下降子序列的长度</strong>。</p>
+<p>##零件分组 Wooden Sticks</p>
+<p>现有一些棍状零件，每个零件都有一定的长度(Li)和重量(Wi)。现在为了加工需要，要将他们分成若干组，使每一组中的零件都能排成一个长度和重量都不下降(若i&lt;j，则Li&lt;=Lj，Wi&lt;=Wj，其中i,j为在同一组中的序号)的序列。请问至少要分成几组？</p>
+<p>先按照长度（或重量）双关键字排序，则答案序列一定是该序列的子序。则问题转化为原问题二，问未排序的那一个元素序列最少分成多少最长的非降的子序列。求这个序列的最长非增子序即可。<br />
+nlogn的非增序列处理比较复杂，（因为处理到a[i]是，要找到小于该值的最大元素，如果其最小则左移，需要从n到1处理）。可以同第一问一样转化为从右向左做LIS，也可以全部取负数做LIS（废话）。 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN=<span class="number">100000</span>+<span class="number">5</span>,INF=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">elem</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> l,w;</span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> elem&amp; b)<span class="keyword">const</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(l==b.l)</span><br><span class="line">			<span class="keyword">return</span> w&lt;b.w;</span><br><span class="line">		<span class="keyword">return</span> l&lt;b.l;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;e[MAXN];</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">int</span> f[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;e[i].l,&amp;e[i].w);</span><br><span class="line">	<span class="built_in">sort</span>(e+<span class="number">1</span>,e+n+<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">memset</span>(f,<span class="number">63</span>,<span class="keyword">sizeof</span> f);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> p=<span class="built_in">lower_bound</span>(f+<span class="number">1</span>,f+n+<span class="number">1</span>,-e[i].w)-f;</span><br><span class="line">		f[p]=-e[i].w;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,<span class="built_in">lower_bound</span>(f+<span class="number">1</span>,f+n+<span class="number">1</span>,INF)-f<span class="number">-1</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://minamimelon.github.io/20171016/BZOJ1034[ZJOI2008]%E6%B3%A1%E6%B3%A1%E5%A0%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="MinamiMelon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MinamiMelon">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/20171016/BZOJ1034%5BZJOI2008%5D%E6%B3%A1%E6%B3%A1%E5%A0%82/" class="post-title-link" itemprop="url">BZOJ1034[ZJOI2008]泡泡堂</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-10-16 23:56:00" itemprop="dateCreated datePublished" datetime="2017-10-16T23:56:00+08:00">2017-10-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-29 15:46:11" itemprop="dateModified" datetime="2021-04-29T15:46:11+08:00">2021-04-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>一开始是不会的，不知道如何处理相等的情况，瞎贪心一直WA。 于是就递归处理是让相等的平局还是输掉，如下，拿到了50分。 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">solve</span><span class="params">(<span class="keyword">int</span> *a,<span class="keyword">int</span> *b,<span class="keyword">int</span> i,<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(;i&lt;=n;++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(a[i]&gt;b[l])</span><br><span class="line">			ans+=<span class="number">2</span>,++l;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(a[i]&lt;b[l])</span><br><span class="line">			--r;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			ans+=<span class="built_in">max</span>(<span class="built_in">solve</span>(a,b,i+<span class="number">1</span>,l+<span class="number">1</span>,r)+<span class="number">1</span>,<span class="built_in">solve</span>(a,b,i+<span class="number">1</span>,l,r<span class="number">-1</span>)+(a[i]==b[r]?<span class="number">1</span>:<span class="number">0</span>));</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 附正解，网上的讲解已经很完善了。 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN=<span class="number">100000</span>+<span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> a[MAXN],b[MAXN];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">solve</span><span class="params">(<span class="keyword">int</span> *a,<span class="keyword">int</span> *b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ans=<span class="number">0</span>,la=<span class="number">1</span>,lb=<span class="number">1</span>,ra=n,rb=n;</span><br><span class="line">	<span class="keyword">while</span>(la&lt;=ra)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(a[la]&gt;b[lb])</span><br><span class="line">		&#123;</span><br><span class="line">			ans+=<span class="number">2</span>;</span><br><span class="line">			++la,++lb;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(a[ra]&gt;b[rb])</span><br><span class="line">		&#123;</span><br><span class="line">			ans+=<span class="number">2</span>;</span><br><span class="line">			--ra,--rb;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(a[la]==b[rb])</span><br><span class="line">				++ans;</span><br><span class="line">			++la,--rb;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a[i]);</span><br><span class="line">	<span class="built_in">sort</span>(a+<span class="number">1</span>,a+n+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;b[i]);</span><br><span class="line">	<span class="built_in">sort</span>(b+<span class="number">1</span>,b+n+<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d %d&quot;</span>,<span class="built_in">solve</span>(a,b),(n&lt;&lt;<span class="number">1</span>)-<span class="built_in">solve</span>(b,a));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://minamimelon.github.io/20171015/BZOJ1015[JSOI2008]%E6%98%9F%E7%90%83%E5%A4%A7%E6%88%98starwar%E9%A2%98%E8%A7%A3%E6%8A%A5%E5%91%8A/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -304,7 +445,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

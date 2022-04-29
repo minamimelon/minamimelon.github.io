@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"minamimelon.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="题面 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自制汇编语言解释器">
+<meta property="og:url" content="http://minamimelon.github.io/20211023/%E8%87%AA%E5%88%B6%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E8%A7%A3%E9%87%8A%E5%99%A8/index.html">
+<meta property="og:site_name" content="MinamiMelon">
+<meta property="og:description" content="题面 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-23T07:47:03.000Z">
+<meta property="article:modified_time" content="2022-04-29T07:49:43.216Z">
+<meta property="article:author" content="MinamiMelon">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://minamimelon.github.io/20211023/%E8%87%AA%E5%88%B6%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E8%A7%A3%E9%87%8A%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>自制汇编语言解释器 | MinamiMelon</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">MinamiMelon</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://minamimelon.github.io/20211023/%E8%87%AA%E5%88%B6%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E8%A7%A3%E9%87%8A%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="MinamiMelon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MinamiMelon">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          自制汇编语言解释器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-23 15:47:03" itemprop="dateCreated datePublished" datetime="2021-10-23T15:47:03+08:00">2021-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-29 15:49:43" itemprop="dateModified" datetime="2022-04-29T15:49:43+08:00">2022-04-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a href="ccsp2016.pdf">题面</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> uc;</span><br><span class="line">uc m[<span class="number">0xffff</span>+<span class="number">10</span>]; </span><br><span class="line"><span class="keyword">char</span> prog[<span class="number">105</span>][<span class="number">50</span>];</span><br><span class="line"><span class="keyword">int</span> totl,now=<span class="number">2</span>,ca=<span class="number">-1</span>,cb=<span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">getrg</span><span class="params">(<span class="keyword">char</span> c)</span></span>&#123;</span><br><span class="line">	<span class="comment">//if(ss[1]&lt;&#x27;A&#x27;||ss[1]&gt;&#x27;D&#x27;) return -1;</span></span><br><span class="line">	<span class="keyword">return</span> ((c-<span class="string">&#x27;A&#x27;</span>)&lt;&lt;<span class="number">1</span>)+<span class="number">0xffff</span>+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getad</span><span class="params">(<span class="keyword">char</span> *ss)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ad;</span><br><span class="line">	<span class="keyword">if</span>(ss[<span class="number">2</span>]==<span class="string">&#x27;X&#x27;</span>)&#123;</span><br><span class="line">		<span class="keyword">int</span> rd=<span class="built_in">getrg</span>(ss[<span class="number">1</span>]);</span><br><span class="line">		ad=((<span class="keyword">int</span>)m[rd+<span class="number">1</span>]&lt;&lt;<span class="number">8</span>)+m[rd];</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="built_in">sscanf</span>(ss,<span class="string">&quot;T%X&quot;</span>,&amp;ad);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(ad&lt;<span class="number">0x3000</span>||ad+<span class="number">1</span>&gt;=<span class="number">0xB000</span>)&#123;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">&quot;ACCESS_VIOLATION&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ad;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">run</span><span class="params">(<span class="keyword">char</span> *s)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">strncmp</span>(s,<span class="string">&quot;ECHO&quot;</span>,<span class="number">4</span>))&#123;</span><br><span class="line">		<span class="keyword">char</span> a[<span class="number">10</span>];</span><br><span class="line">		<span class="built_in">sscanf</span>(s,<span class="string">&quot;ECHO %s&quot;</span>,a);</span><br><span class="line">		<span class="keyword">if</span>(a[<span class="number">0</span>]==<span class="string">&#x27;T&#x27;</span>||a[<span class="number">1</span>]==<span class="string">&#x27;X&#x27;</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> ad;</span><br><span class="line">			<span class="keyword">if</span>(a[<span class="number">0</span>]==<span class="string">&#x27;T&#x27;</span>) ad=<span class="built_in">getad</span>(a);</span><br><span class="line">			<span class="keyword">else</span> ad=<span class="built_in">getrg</span>(a[<span class="number">0</span>]);</span><br><span class="line">			<span class="keyword">if</span>(ad&gt;<span class="number">0</span>)&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;%02X%02X\n&quot;</span>,m[ad+<span class="number">1</span>],m[ad]);</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">puts</span>(a);</span><br><span class="line">		&#125;</span><br><span class="line">		++now;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(!<span class="built_in">strncmp</span>(s,<span class="string">&quot;ADD&quot;</span>,<span class="number">3</span>))&#123;</span><br><span class="line">		<span class="keyword">char</span> a[<span class="number">10</span>],b[<span class="number">10</span>];</span><br><span class="line">		<span class="built_in">sscanf</span>(s,<span class="string">&quot;ADD %s %s&quot;</span>,a,b);</span><br><span class="line">		<span class="keyword">int</span> va,vb;</span><br><span class="line">		<span class="keyword">int</span> ad;</span><br><span class="line">		<span class="keyword">if</span>(a[<span class="number">0</span>]==<span class="string">&#x27;T&#x27;</span>) ad=<span class="built_in">getad</span>(a);</span><br><span class="line">		<span class="keyword">else</span> ad=<span class="built_in">getrg</span>(a[<span class="number">0</span>]);</span><br><span class="line">		<span class="keyword">if</span>(ad&gt;<span class="number">0</span>)&#123;</span><br><span class="line">			va=((<span class="keyword">int</span>)m[ad+<span class="number">1</span>]&lt;&lt;<span class="number">8</span>)+m[ad];</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(b[<span class="number">0</span>]==<span class="string">&#x27;T&#x27;</span>||b[<span class="number">1</span>]==<span class="string">&#x27;X&#x27;</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> bd;</span><br><span class="line">			<span class="keyword">if</span>(b[<span class="number">0</span>]==<span class="string">&#x27;T&#x27;</span>) bd=<span class="built_in">getad</span>(b);</span><br><span class="line">			<span class="keyword">else</span> bd=<span class="built_in">getrg</span>(b[<span class="number">0</span>]);</span><br><span class="line">			<span class="keyword">if</span>(bd&gt;<span class="number">0</span>)&#123;</span><br><span class="line">				vb=((<span class="keyword">int</span>)m[bd+<span class="number">1</span>]&lt;&lt;<span class="number">8</span>)+m[bd];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">sscanf</span>(b,<span class="string">&quot;%X&quot;</span>,&amp;vb);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> vc=va+vb;</span><br><span class="line">		m[ad+<span class="number">1</span>]=((vc&gt;&gt;<span class="number">8</span>)&amp;<span class="number">0xff</span>);</span><br><span class="line">		m[ad]=(vc&amp;<span class="number">0xff</span>);</span><br><span class="line">		++now;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(!<span class="built_in">strncmp</span>(s,<span class="string">&quot;INC&quot;</span>,<span class="number">3</span>))&#123;</span><br><span class="line">		<span class="keyword">char</span> a[<span class="number">10</span>];</span><br><span class="line">		<span class="built_in">sscanf</span>(s,<span class="string">&quot;INC %s&quot;</span>,a);</span><br><span class="line">		<span class="keyword">int</span> ad;</span><br><span class="line">		<span class="keyword">if</span>(a[<span class="number">0</span>]==<span class="string">&#x27;T&#x27;</span>) ad=<span class="built_in">getad</span>(a);</span><br><span class="line">		<span class="keyword">else</span> ad=<span class="built_in">getrg</span>(a[<span class="number">0</span>]);</span><br><span class="line">		<span class="keyword">if</span>(ad&gt;<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> va=((<span class="keyword">int</span>)m[ad+<span class="number">1</span>]&lt;&lt;<span class="number">8</span>)+m[ad];</span><br><span class="line">			++va;</span><br><span class="line">			m[ad+<span class="number">1</span>]=((va&gt;&gt;<span class="number">8</span>)&amp;<span class="number">0xff</span>);</span><br><span class="line">			m[ad]=(va&amp;<span class="number">0xff</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		++now;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(!<span class="built_in">strncmp</span>(s,<span class="string">&quot;MOV&quot;</span>,<span class="number">3</span>))&#123;</span><br><span class="line">		<span class="keyword">char</span> a[<span class="number">10</span>],b[<span class="number">10</span>];</span><br><span class="line">		<span class="built_in">sscanf</span>(s,<span class="string">&quot;MOV %s %s&quot;</span>,a,b);</span><br><span class="line">		<span class="keyword">int</span> va,vb;</span><br><span class="line">		<span class="keyword">int</span> ad;</span><br><span class="line">		<span class="keyword">if</span>(a[<span class="number">0</span>]==<span class="string">&#x27;T&#x27;</span>) ad=<span class="built_in">getad</span>(a);</span><br><span class="line">		<span class="keyword">else</span> ad=<span class="built_in">getrg</span>(a[<span class="number">0</span>]);</span><br><span class="line">		<span class="keyword">if</span>(ad&gt;<span class="number">0</span>)&#123;</span><br><span class="line">			va=((<span class="keyword">int</span>)m[ad+<span class="number">1</span>]&lt;&lt;<span class="number">8</span>)+m[ad];</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(b[<span class="number">0</span>]==<span class="string">&#x27;T&#x27;</span>||b[<span class="number">1</span>]==<span class="string">&#x27;X&#x27;</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> bd;</span><br><span class="line">			<span class="keyword">if</span>(b[<span class="number">0</span>]==<span class="string">&#x27;T&#x27;</span>) bd=<span class="built_in">getad</span>(b);</span><br><span class="line">			<span class="keyword">else</span> bd=<span class="built_in">getrg</span>(b[<span class="number">0</span>]);</span><br><span class="line">			<span class="keyword">if</span>(bd&gt;<span class="number">0</span>)&#123;</span><br><span class="line">				vb=((<span class="keyword">int</span>)m[bd+<span class="number">1</span>]&lt;&lt;<span class="number">8</span>)+m[bd];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">sscanf</span>(b,<span class="string">&quot;%X&quot;</span>,&amp;vb);</span><br><span class="line">		&#125;</span><br><span class="line">		m[ad+<span class="number">1</span>]=((vb&gt;&gt;<span class="number">8</span>)&amp;<span class="number">0xff</span>);</span><br><span class="line">		m[ad]=(vb&amp;<span class="number">0xff</span>);</span><br><span class="line">		++now;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(!<span class="built_in">strncmp</span>(s,<span class="string">&quot;CMP&quot;</span>,<span class="number">3</span>))&#123;</span><br><span class="line">		<span class="keyword">char</span> a[<span class="number">10</span>],b[<span class="number">10</span>];</span><br><span class="line">		<span class="built_in">sscanf</span>(s,<span class="string">&quot;CMP %s %s&quot;</span>,a,b);</span><br><span class="line">		<span class="keyword">if</span>(a[<span class="number">0</span>]==<span class="string">&#x27;T&#x27;</span>||a[<span class="number">1</span>]==<span class="string">&#x27;X&#x27;</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> ad;</span><br><span class="line">			<span class="keyword">if</span>(a[<span class="number">0</span>]==<span class="string">&#x27;T&#x27;</span>) ad=<span class="built_in">getad</span>(a);</span><br><span class="line">			<span class="keyword">else</span> ad=<span class="built_in">getrg</span>(a[<span class="number">0</span>]);</span><br><span class="line">			<span class="keyword">if</span>(ad&gt;<span class="number">0</span>)&#123;</span><br><span class="line">				ca=((<span class="keyword">int</span>)m[ad+<span class="number">1</span>]&lt;&lt;<span class="number">8</span>)+m[ad];</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">sscanf</span>(a,<span class="string">&quot;%X&quot;</span>,&amp;ca);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(b[<span class="number">0</span>]==<span class="string">&#x27;T&#x27;</span>||b[<span class="number">1</span>]==<span class="string">&#x27;X&#x27;</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> bd;</span><br><span class="line">			<span class="keyword">if</span>(b[<span class="number">0</span>]==<span class="string">&#x27;T&#x27;</span>) bd=<span class="built_in">getad</span>(b);</span><br><span class="line">			<span class="keyword">else</span> bd=<span class="built_in">getrg</span>(b[<span class="number">0</span>]);</span><br><span class="line">			<span class="keyword">if</span>(bd&gt;<span class="number">0</span>)&#123;</span><br><span class="line">				cb=((<span class="keyword">int</span>)m[bd+<span class="number">1</span>]&lt;&lt;<span class="number">8</span>)+m[bd];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">sscanf</span>(b,<span class="string">&quot;%X&quot;</span>,&amp;cb);</span><br><span class="line">		&#125;</span><br><span class="line">		++now;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(s[<span class="number">0</span>]==<span class="string">&#x27;J&#x27;</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(s[<span class="number">1</span>]==<span class="string">&#x27;M&#x27;</span>)&#123;</span><br><span class="line">			<span class="built_in">sscanf</span>(s,<span class="string">&quot;JMP %X&quot;</span>,&amp;now);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(ca==<span class="number">-1</span>&amp;&amp;cb==<span class="number">-1</span>)&#123;</span><br><span class="line">				<span class="built_in">puts</span>(<span class="string">&quot;CMP_MISSING&quot;</span>);</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">bool</span> f=<span class="number">0</span>;</span><br><span class="line">			<span class="built_in"><span class="keyword">switch</span></span>(s[<span class="number">1</span>])&#123;</span><br><span class="line">				<span class="keyword">case</span> <span class="string">&#x27;M&#x27;</span>:f=<span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> <span class="string">&#x27;G&#x27;</span>:f=(ca&gt;cb);<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> <span class="string">&#x27;L&#x27;</span>:f=(ca&lt;cb);<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> <span class="string">&#x27;E&#x27;</span>:f=(ca==cb);<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> <span class="string">&#x27;N&#x27;</span>:</span><br><span class="line">					<span class="built_in"><span class="keyword">switch</span></span>(s[<span class="number">2</span>])&#123;</span><br><span class="line">							<span class="keyword">case</span> <span class="string">&#x27;G&#x27;</span>:f=!(ca&gt;cb);<span class="keyword">break</span>;</span><br><span class="line">							<span class="keyword">case</span> <span class="string">&#x27;L&#x27;</span>:f=!(ca&lt;cb);<span class="keyword">break</span>;</span><br><span class="line">							<span class="keyword">case</span> <span class="string">&#x27;E&#x27;</span>:f=(ca!=cb);<span class="keyword">break</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(f)&#123;</span><br><span class="line">				<span class="keyword">int</span> lin;</span><br><span class="line">				s[<span class="number">0</span>]=<span class="string">&#x27; &#x27;</span>,s[<span class="number">1</span>]=<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">				<span class="built_in">sscanf</span>(s,<span class="string">&quot;J %X&quot;</span>,&amp;lin);</span><br><span class="line">				<span class="keyword">if</span>(lin&lt;<span class="number">2</span>||lin&gt;totl)&#123;</span><br><span class="line">					<span class="built_in">puts</span>(<span class="string">&quot;RUNTIME_ERROR&quot;</span>);</span><br><span class="line">					<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				now=lin;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				now++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(!<span class="built_in">strncmp</span>(s,<span class="string">&quot;STOP&quot;</span>,<span class="number">4</span>))&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">gets</span>(prog[++totl]));</span><br><span class="line">	<span class="keyword">int</span> cnt=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">run</span>(prog[now]))&#123;</span><br><span class="line">		++cnt;</span><br><span class="line">		<span class="keyword">if</span>(cnt&gt;=<span class="number">1000000</span>)&#123;</span><br><span class="line">			<span class="built_in">puts</span>(<span class="string">&quot;TLE&quot;</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/20211018/Bor%C5%AFvka%E2%80%99s%20algorithm%E4%B8%8E%E4%BD%8D%E8%BF%90%E7%AE%97%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%EF%BC%88%E5%BC%82%E6%88%96%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%EF%BC%8CAND%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%EF%BC%89/" rel="prev" title="Borůvka’s algorithm与位运算最小生成树（异或最小生成树，AND最小生成树）">
+      <i class="fa fa-chevron-left"></i> Borůvka’s algorithm与位运算最小生成树（异或最小生成树，AND最小生成树）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/20211117/%E7%BA%BF%E6%AE%B5%E6%A0%91%E9%A2%98%E7%9B%AE%E9%80%89%E7%BB%83/" rel="next" title="线段树题目选练">
+      线段树题目选练 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">MinamiMelon</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MinamiMelon</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '5dd0615f6f9152a467c9',
+      clientSecret: 'd60adec28c1196fc9031fe922d81fb6a00e8c7d5',
+      repo        : 'minamimelon.github.io',
+      owner       : 'minamimelon',
+      admin       : ['minamimelon'],
+      id          : '9ccd02d62487e1825ba993096e734dcb',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
