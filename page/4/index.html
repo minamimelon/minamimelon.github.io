@@ -173,6 +173,143 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://minamimelon.github.io/20171019/%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97Arithmetic%20Progressions%E9%A2%98%E8%A7%A3(USACO1.4)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="MinamiMelon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MinamiMelon">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/20171019/%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97Arithmetic%20Progressions%E9%A2%98%E8%A7%A3(USACO1.4)/" class="post-title-link" itemprop="url">等差数列Arithmetic Progressions题解(USACO1.4)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-10-19 13:55:00" itemprop="dateCreated datePublished" datetime="2017-10-19T13:55:00+08:00">2017-10-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-29 15:46:11" itemprop="dateModified" datetime="2021-04-29T15:46:11+08:00">2021-04-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="arithmetic-progressions-usaco1.4">Arithmetic Progressions USACO1.4</h2>
+<p>An arithmetic progression is a sequence of the form a, a+b, a+2b, ..., a+nb where n=0,1,2,3,... . For this problem, a is a non-negative integer and b is a positive integer.</p>
+<p>Write a program that finds all arithmetic progressions of length n in the set S of bisquares. The set of bisquares is defined as the set of all integers of the form p2 + q2 (where p and q are non-negative integers).</p>
+<p>INPUT: N (3 &lt;= N &lt;= 25), the length of progressions for which to search M (1 &lt;= M &lt;= 250), an upper bound to limit the search to the bisquares with 0 &lt;= p,q &lt;= M.<br />
+OUTPUT: If no sequence is found, a single line reading `NONE'. Otherwise, output one or more lines, each with two integers: the first element in a found sequence and the difference between consecutive elements in the same sequence. The lines should be ordered with smallest-difference sequences first and smallest starting number within those sequences first.<br />
+There will be no more than 10,000 sequences.</p>
+<p>此题目需要一些小的剪枝，详见注释。 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rint register int</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN=<span class="number">100000</span>+<span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> a[MAXN];</span><br><span class="line"><span class="keyword">int</span> aa[<span class="number">10005</span>],bb[<span class="number">10005</span>];</span><br><span class="line"><span class="keyword">bool</span> tab[MAXN];</span><br><span class="line"><span class="keyword">int</span> n,m,cnt,tot,mx;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">freopen</span>(<span class="string">&quot;ariprog.in&quot;</span>,<span class="string">&quot;r&quot;</span>,stdin);</span><br><span class="line">	<span class="built_in">freopen</span>(<span class="string">&quot;ariprog.out&quot;</span>,<span class="string">&quot;w&quot;</span>,stdout);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;n,&amp;m);</span><br><span class="line">	<span class="keyword">for</span>(rint i=<span class="number">0</span>;i&lt;=m;++i)</span><br><span class="line">		<span class="keyword">for</span>(rint j=<span class="number">0</span>;j&lt;=m;++j)</span><br><span class="line">			a[++cnt]=i*i+j*j,tab[a[cnt]]=<span class="number">1</span>;<span class="comment">//预处理双平方数表，快速查表</span></span><br><span class="line">	<span class="built_in">sort</span>(a+<span class="number">1</span>,a+cnt);</span><br><span class="line">	cnt=<span class="built_in">unique</span>(a+<span class="number">1</span>,a+cnt+<span class="number">1</span>)-a<span class="number">-1</span>;</span><br><span class="line">	mx=m*m&lt;&lt;<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> r=mx/(n<span class="number">-1</span>);<span class="comment">//公差上界，最大的数除以要求的长度</span></span><br><span class="line">	<span class="keyword">for</span>(rint i=<span class="number">1</span>;i&lt;=r;++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(rint j=<span class="number">1</span>;j&lt;=cnt;++j)</span><br><span class="line">		&#123;</span><br><span class="line">			rint c=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span>(rint k=n<span class="number">-1</span>;k&gt;<span class="number">0</span>&amp;&amp;a[j]+i*k&lt;=mx;--k)<span class="comment">//若超过max退出循环</span></span><br><span class="line">                <span class="comment">//从大到小枚举，不符合情况易退出</span></span><br><span class="line">				<span class="keyword">if</span>(!tab[a[j]+i*k]) <span class="comment">//若有一个不符合条件即break</span></span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">else</span> ++c;</span><br><span class="line">			<span class="keyword">if</span>(c==n<span class="number">-1</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				aa[++tot]=a[j];</span><br><span class="line">				bb[tot]=i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(tot==<span class="number">0</span>)</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">&quot;NONE&quot;</span>);</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=tot;++i)</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>,aa[i],bb[i]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://minamimelon.github.io/20171017/Poj1328Radar%20Installation%E9%9B%B7%E8%BE%BE%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="MinamiMelon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MinamiMelon">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/20171017/Poj1328Radar%20Installation%E9%9B%B7%E8%BE%BE%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">Poj1328Radar Installation雷达安装</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-10-17 09:10:00" itemprop="dateCreated datePublished" datetime="2017-10-17T09:10:00+08:00">2017-10-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-29 15:46:11" itemprop="dateModified" datetime="2021-04-29T15:46:11+08:00">2021-04-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="http://poj.org/problem?id=1328">原题链接</a></p>
+<p>经典贪心，转化为问题为，对于所有的区间，求最小的点数能使每个区间都至少有一个点。 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN=<span class="number">100000</span>+<span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> eps=<span class="number">0.000001</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">seg</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">double</span> l,r;</span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> seg&amp; b)<span class="keyword">const</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(l==b.l)</span><br><span class="line">			<span class="keyword">return</span> r&lt;b.r;</span><br><span class="line">		<span class="keyword">return</span> l&lt;b.l;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;e[MAXN];</span><br><span class="line"><span class="keyword">int</span> cs;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n,R;</span><br><span class="line">	<span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;n,&amp;R))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(n==<span class="number">0</span>&amp;&amp;R==<span class="number">0</span>)</span><br><span class="line">			 <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">int</span> x,y;</span><br><span class="line">		<span class="keyword">bool</span> f=<span class="number">0</span>;</span><br><span class="line">		<span class="built_in">memset</span>(e,<span class="number">0</span>,<span class="keyword">sizeof</span> e);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;x,&amp;y);</span><br><span class="line">			<span class="keyword">if</span>(y==R)</span><br><span class="line">			&#123;</span><br><span class="line">				e[i]=(seg)&#123;<span class="number">1.0</span>*x,<span class="number">1.0</span>*x&#125;;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(y&lt;R)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">double</span> t=<span class="built_in">sqrt</span>(R*R-y*y);</span><br><span class="line">				e[i]=(seg)&#123;x-t,x+t&#125;;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				f=<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> ans;</span><br><span class="line">		<span class="keyword">if</span>(f)</span><br><span class="line">			ans=<span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">sort</span>(e+<span class="number">1</span>,e+n+<span class="number">1</span>);</span><br><span class="line">			ans=<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">double</span> t=e[<span class="number">1</span>].r;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;++i)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span>(e[i].l&gt;t)</span><br><span class="line">				&#123;</span><br><span class="line">					++ans;</span><br><span class="line">					t=e[i].r;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span>(e[i].r&lt;t)</span><br><span class="line">					t=e[i].r;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;Case %d: %d\n&quot;</span>,++cs,ans);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://minamimelon.github.io/20171017/%E6%8B%A6%E6%88%AA%E5%AF%BC%E5%BC%B9%E7%B1%BB%E9%97%AE%E9%A2%98%20%EF%BC%88Codevs4888%E9%9B%B6%E4%BB%B6%E5%88%86%E7%BB%84POJ1065Wooden%20Sticks%EF%BC%89%EF%BC%88LIS%E5%8F%8A%E5%85%B6%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -445,7 +582,7 @@ nlogn的非增序列处理比较复杂，（因为处理到a[i]是，要找到�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">35</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
