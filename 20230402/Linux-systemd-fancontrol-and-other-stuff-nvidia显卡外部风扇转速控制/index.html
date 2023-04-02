@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"minamimelon.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354#include&lt;stdio.h&gt;#define LOCAL &#x2F;&#x2F;无参宏&#x2F;&#x2F;条件编译 #ifdef LOCALint a&#x3D;1;#elseint a&#x3D;2;#endif#ifndef LOCAL">
+  <meta name="description" content="像 Nvidia P40、P4、P100 或 M40 等服务器计算卡没有内置风扇，一般在无风道的情况下会外加在尾部的风扇以解决散热。对这个风扇的调速，可以看到手动使用调速线、拆开显卡在核心附近安装热电偶获取温度然后用电路控制风扇转速的方案。 然而，系统可以获取显卡的温度，同时也可以控制PWM输出控制风扇转速。因此一定存在软件的解决方案控制风扇转速。解决方案如下。 首先安装 fancontrol">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C语言预处理学习记录">
-<meta property="og:url" content="http://minamimelon.github.io/20200227/C%E8%AF%AD%E8%A8%80%E9%A2%84%E5%A4%84%E7%90%86%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:title" content="Linux systemd, fancontrol and other stuff. nvidia显卡外部风扇转速控制">
+<meta property="og:url" content="http://minamimelon.github.io/20230402/Linux-systemd-fancontrol-and-other-stuff-nvidia%E6%98%BE%E5%8D%A1%E5%A4%96%E9%83%A8%E9%A3%8E%E6%89%87%E8%BD%AC%E9%80%9F%E6%8E%A7%E5%88%B6/index.html">
 <meta property="og:site_name" content="MinamiMelon">
-<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354#include&lt;stdio.h&gt;#define LOCAL &#x2F;&#x2F;无参宏&#x2F;&#x2F;条件编译 #ifdef LOCALint a&#x3D;1;#elseint a&#x3D;2;#endif#ifndef LOCAL">
+<meta property="og:description" content="像 Nvidia P40、P4、P100 或 M40 等服务器计算卡没有内置风扇，一般在无风道的情况下会外加在尾部的风扇以解决散热。对这个风扇的调速，可以看到手动使用调速线、拆开显卡在核心附近安装热电偶获取温度然后用电路控制风扇转速的方案。 然而，系统可以获取显卡的温度，同时也可以控制PWM输出控制风扇转速。因此一定存在软件的解决方案控制风扇转速。解决方案如下。 首先安装 fancontrol">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-02-27T02:26:00.000Z">
-<meta property="article:modified_time" content="2021-04-29T07:46:11.656Z">
+<meta property="article:published_time" content="2023-04-02T14:23:57.000Z">
+<meta property="article:modified_time" content="2023-04-02T15:09:31.526Z">
 <meta property="article:author" content="MinamiMelon">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://minamimelon.github.io/20200227/C%E8%AF%AD%E8%A8%80%E9%A2%84%E5%A4%84%E7%90%86%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
+<link rel="canonical" href="http://minamimelon.github.io/20230402/Linux-systemd-fancontrol-and-other-stuff-nvidia%E6%98%BE%E5%8D%A1%E5%A4%96%E9%83%A8%E9%A3%8E%E6%89%87%E8%BD%AC%E9%80%9F%E6%8E%A7%E5%88%B6/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>C语言预处理学习记录 | MinamiMelon</title>
+  <title>Linux systemd, fancontrol and other stuff. nvidia显卡外部风扇转速控制 | MinamiMelon</title>
   
 
 
@@ -178,7 +178,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://minamimelon.github.io/20200227/C%E8%AF%AD%E8%A8%80%E9%A2%84%E5%A4%84%E7%90%86%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
+    <link itemprop="mainEntityOfPage" href="http://minamimelon.github.io/20230402/Linux-systemd-fancontrol-and-other-stuff-nvidia%E6%98%BE%E5%8D%A1%E5%A4%96%E9%83%A8%E9%A3%8E%E6%89%87%E8%BD%AC%E9%80%9F%E6%8E%A7%E5%88%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -191,7 +191,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          C语言预处理学习记录
+          Linux systemd, fancontrol and other stuff. nvidia显卡外部风扇转速控制
         </h1>
 
         <div class="post-meta">
@@ -200,16 +200,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-02-27 10:26:00" itemprop="dateCreated datePublished" datetime="2020-02-27T10:26:00+08:00">2020-02-27</time>
+              <time title="创建时间：2023-04-02 22:23:57 / 修改时间：23:09:31" itemprop="dateCreated datePublished" datetime="2023-04-02T22:23:57+08:00">2023-04-02</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-29 15:46:11" itemprop="dateModified" datetime="2021-04-29T15:46:11+08:00">2021-04-29</time>
-              </span>
 
           
 
@@ -222,7 +216,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOCAL <span class="comment">//无参宏</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//条件编译 </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line"><span class="keyword">int</span> a=<span class="number">1</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="keyword">int</span> a=<span class="number">2</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> LOCAL</span></span><br><span class="line"><span class="keyword">int</span> b=<span class="number">1</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span> </span></span><br><span class="line"><span class="keyword">int</span> b=<span class="number">2</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI 3.1415926535 <span class="comment">//有参宏</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max_wrong(a,b) a&gt;b?a:b</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max(a,b) ((a)&gt;(b)?(a):(b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> maxwell(a,b) (&#123;\</span></span><br><span class="line">	__typeof(a) _a=(a),_b=(b);\</span><br><span class="line">	_a&gt;_b?_a:_b;\</span><br><span class="line">&#125;) </span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG<span class="comment">//</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> DEBUG</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> log(frm,args...) &#123;\</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;[%s %s %d] : %s = &quot;</span>,__FILE__,__func__,__LINE__,<span class="meta">#args);\</span></span><br><span class="line">	<span class="built_in">printf</span>(frm,#<span class="meta">#args);\</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> log(frm,args...)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> <span class="built_in">main</span>()&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;a = %d b = %d\n&quot;</span>,a,b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;max_wrong(2,max_wrong(3,4)) = %d\n&quot;</span>,<span class="built_in">max_wrong</span>(<span class="number">2</span>,<span class="built_in">max_wrong</span>(<span class="number">3</span>,<span class="number">4</span>)));</span><br><span class="line">	<span class="comment">//展开后： 2&gt;3&gt;4?3:4?2:3&gt;4?3:4 实际执行 ((2&gt;3&gt;4)?(3):(4))? (2) : (3&gt;4?3:4)</span></span><br><span class="line">	<span class="comment">//使用 -E 编译选项获得预编译结果 </span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;max(2,max(3,4)) = %d\n&quot;</span>,<span class="built_in">max</span>(<span class="number">2</span>,<span class="built_in">max</span>(<span class="number">3</span>,<span class="number">4</span>)));</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">1</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,<span class="built_in">max</span>(a++,<span class="number">0</span>));</span><br><span class="line">	<span class="built_in">log</span>(<span class="string">&quot;%d\n&quot;</span>,a);</span><br><span class="line">	a=<span class="number">1</span>;</span><br><span class="line">	<span class="built_in">log</span>(<span class="string">&quot;%d\n&quot;</span>,<span class="built_in">maxwell</span>(a++,<span class="number">0</span>));</span><br><span class="line">	<span class="built_in">log</span>(<span class="string">&quot;%d\n&quot;</span>,a);</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">log</span>(<span class="string">&quot;Hello world&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>像 Nvidia P40、P4、P100 或 M40 等服务器计算卡没有内置风扇，一般在无风道的情况下会外加在尾部的风扇以解决散热。对这个风扇的调速，可以看到手动使用调速线、拆开显卡在核心附近安装热电偶获取温度然后用电路控制风扇转速的方案。</p>
+<p>然而，系统可以获取显卡的温度，同时也可以控制PWM输出控制风扇转速。因此一定存在软件的解决方案控制风扇转速。解决方案如下。</p>
+<p>首先安装 fancontrol，大部分发行版的包管理工具中有此软件。</p>
+<p>其控制温度的脚本如下（省略了硬件信息）。FCTEMPS 处是可以填绝对路径的，这里填/home/gputemp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">FCTEMPS&#x3D;hwmon4&#x2F;pwm2&#x3D;&#x2F;home&#x2F;gputemp</span><br><span class="line">FCFANS&#x3D;hwmon4&#x2F;pwm2&#x3D;hwmon4&#x2F;fan2_input </span><br><span class="line">MINTEMP&#x3D;hwmon4&#x2F;pwm2&#x3D;35 </span><br><span class="line">MAXTEMP&#x3D;hwmon4&#x2F;pwm2&#x3D;65 </span><br><span class="line">MINSTART&#x3D;hwmon4&#x2F;pwm2&#x3D;120 </span><br><span class="line">MINSTOP&#x3D;hwmon4&#x2F;pwm2&#x3D;20 </span><br><span class="line">MINPWM&#x3D;hwmon4&#x2F;pwm2&#x3D;20 </span><br><span class="line">MAXPWM&#x3D;hwmon4&#x2F;pwm2&#x3D;255 </span><br><span class="line">AVERAGE&#x3D;hwmon4&#x2F;pwm2&#x3D;2 </span><br></pre></td></tr></table></figure>
+<p>我们接下来用一个service 向/home/gputemp 循环写温度。 其systemd 脚本如下。写好后放置到正确位置，并设置enable 开启启动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Write GPU temperature to file</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart&#x3D;sh -c &#39;echo $(nvidia-smi --query-gpu&#x3D;temperature.gpu --format&#x3D;csv,noheader | tail -n 1)000 &gt; &#x2F;home&#x2F;gputemp&#39;</span><br><span class="line">Restart&#x3D;always</span><br><span class="line">RestartSec&#x3D;10</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+<p>另，实际上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;(echo $(nvidia-smi --query-gpu&#x3D;temperature.gpu --format&#x3D;csv,noheader | tail -n 1)000)</span><br></pre></td></tr></table></figure>
+<p>可以将直接转为文件，使用stat 查看其信息如下。但 fancontrol 脚本处并不支持执行命令获得的文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> stat &lt;(echo $(nvidia-smi --query-gpu&#x3D;temperature.gpu --format&#x3D;csv,noheader | tail -n 1)000)</span><br><span class="line">  File: &#x2F;dev&#x2F;fd&#x2F;63 -&gt; pipe:[20209]</span><br><span class="line">  Size: 64              Blocks: 0          IO Block: 1024   symbolic link</span><br><span class="line">Device: 17h&#x2F;23d Inode: 401811      Links: 1</span><br><span class="line">Access: (0500&#x2F;lr-x------)  Uid: ( 1000&#x2F;     wwq)   Gid: ( 1000&#x2F;     wwq)</span><br><span class="line">Access: 2023-04-02 22:59:46.287394863 +0800</span><br><span class="line">Modify: 2023-04-02 22:59:46.287394863 +0800</span><br><span class="line">Change: 2023-04-02 22:59:46.287394863 +0800</span><br><span class="line"> Birth: -</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -238,13 +242,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/20180110/%E4%B8%80%E4%B8%AA%E6%97%A0%E8%81%8A%E7%9A%84%E6%B8%B8%E6%88%8F%E2%80%94%E2%80%94%E5%90%83%E8%B1%86%E4%BA%BA/" rel="prev" title="一个无聊的游戏——吃豆人">
-      <i class="fa fa-chevron-left"></i> 一个无聊的游戏——吃豆人
+    <a href="/20220728/x86%E6%B1%87%E7%BC%96-MASM-%E5%AE%9E%E7%8E%B0%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95/" rel="prev" title="x86汇编(MASM)实现矩阵乘法">
+      <i class="fa fa-chevron-left"></i> x86汇编(MASM)实现矩阵乘法
     </a></div>
-      <div class="post-nav-item">
-    <a href="/20200731/%E8%B4%AA%E5%90%83%E8%9B%87%EF%BC%8CC++/" rel="next" title="贪吃蛇，C++">
-      贪吃蛇，C++ <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -475,7 +476,7 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       repo        : 'minamimelon.github.io',
       owner       : 'minamimelon',
       admin       : ['minamimelon'],
-      id          : '67d327fb6d2da08f255a96524e1ff81c',
+      id          : 'bef83169d4aba9f5763ab6046a11fd61',
         language: 'zh-CN',
       distractionFreeMode: true
     });
